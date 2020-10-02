@@ -129,7 +129,7 @@ public class SixElement_Orbit : MonoBehaviour
         this.om = om;
         this.V0 = V0;
         moon = is_moon;
-        TimeScale = 10000;
+        TimeScale = 1000;
         this.TargetObject = TargetObject;
         SetElipse();
         CalculateOrbitalPlane();

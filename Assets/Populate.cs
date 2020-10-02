@@ -60,7 +60,7 @@ public class Populate : MonoBehaviour
 
         string[] elemets = MoonData.Split(',');
         obj.name = elemets[0];
-        float a = (float)(float.Parse(elemets[1])*KmToAu * 500);
+        float a = (float)(float.Parse(elemets[1]) * 500 * KmToAu);
         float e = float.Parse(elemets[2]);
         float V0 = float.Parse(elemets[4]);
         float w = float.Parse(elemets[3]);
@@ -68,7 +68,7 @@ public class Populate : MonoBehaviour
         float om = float.Parse(elemets[6]);
 
         obj.GetComponent<SixElement_Orbit>().SetOrbitalPrameters(a, e, i, w, om, V0, true, GameObject.Find(Plant));
-        obj.transform.localScale = Vector3.one * (float.Parse(elemets[11]) /25);
+        obj.transform.localScale = Vector3.one * ((float)(float.Parse(elemets[11]) /200));
         
     }
     private void NewAstroid()
@@ -78,7 +78,7 @@ public class Populate : MonoBehaviour
 
         string[] elemets = AstroidDataEntries[index].Split(',');
         obj.name = elemets[0];
-        float a = float.Parse(elemets[4])*500;
+        float a = float.Parse(elemets[4]) * 500;
         float e = float.Parse(elemets[3]);
         float V0 = float.Parse(elemets[9]);
         float w = float.Parse(elemets[8]);
@@ -86,7 +86,7 @@ public class Populate : MonoBehaviour
         float om = float.Parse(elemets[7]);
 
         obj.GetComponent<SixElement_Orbit>().SetOrbitalPrameters(a, e, i, w, om, V0,false, GameObject.Find("Sun"));
-        obj.transform.localScale = Vector3.one*(float.Parse(elemets[10]) / 25);
+        obj.transform.localScale = Vector3.one*((float)(float.Parse(elemets[10]) /50));
         
     }
     private void NewPlant()
@@ -96,7 +96,7 @@ public class Populate : MonoBehaviour
 
         string[] elemets = PlanetDataEntries[PlantIndex].Split(',');
         obj.name = elemets[0];
-        float a = float.Parse(elemets[1]) * 500;
+        float a = float.Parse(elemets[1])*500;
         float e = float.Parse(elemets[2]);
         float V0 = float.Parse(elemets[4]);
         float w = float.Parse(elemets[5]);
@@ -104,7 +104,7 @@ public class Populate : MonoBehaviour
         float om = float.Parse(elemets[6]);
 
         obj.GetComponent<SixElement_Orbit>().SetOrbitalPrameters(a, e, i, w, om, V0,false, GameObject.Find("Sun"));
-        obj.transform.localScale = Vector3.one * (float.Parse(elemets[10]) / 500);
+        obj.transform.localScale = Vector3.one * ((float)(float.Parse(elemets[10]) /750));
 
     }
     IEnumerator SpawnAstroids()
