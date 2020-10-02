@@ -47,9 +47,9 @@ public class SixElement_Orbit : MonoBehaviour
     }
     void CalculateOrbitalPlane()
     {
-        Vector3 Jh = new Vector3(0, 1, 0);
-        Vector3 Ih = new Vector3(1, 0 ,0);
-        Vector3 Kh = new Vector3(0 ,0, 1);
+        Vector3 Jh = new Vector3(1, 0, 0);
+        Vector3 Ih = new Vector3(0, 0, 1);
+        Vector3 Kh = new Vector3(0, 1, 0);
 
         if (moon)
         {
@@ -93,7 +93,7 @@ public class SixElement_Orbit : MonoBehaviour
         float x = Mathf.Cos(angle) * a+ TargetObject.transform.position.x - c;
         float y = Mathf.Sin(angle) * b + TargetObject.transform.position.z;
 
-        return x * Xh + 0 * Yh + y * Zh;
+        return x * Xh + 0 * Zh + y * Yh;
     }
     float CalculateOrbitalPriod()
     {
