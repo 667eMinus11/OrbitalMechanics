@@ -36,7 +36,7 @@ public class Populate : MonoBehaviour
     }
     private void SpawnMoons()
     {
-        string[] Plants = { "Earth", "Mars", "jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+        string[] Plants = { "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
         foreach(string plant in Plants)
         {
            SpawnSystem(plant);
@@ -60,7 +60,7 @@ public class Populate : MonoBehaviour
 
         string[] elemets = MoonData.Split(',');
         obj.name = elemets[0];
-        float a = (float)(float.Parse(elemets[1])*KmToAu * 500);
+        float a = (float)(float.Parse(elemets[1])*KmToAu * 5000);
         float e = float.Parse(elemets[2]);
         float V0 = float.Parse(elemets[4]);
         float w = float.Parse(elemets[3]);
@@ -68,7 +68,7 @@ public class Populate : MonoBehaviour
         float om = float.Parse(elemets[6]);
 
         obj.GetComponent<SixElement_Orbit>().SetOrbitalPrameters(a, e, i, w, om, V0, true, GameObject.Find(Plant));
-        obj.transform.localScale = Vector3.one * (float.Parse(elemets[10]) / 50);
+        obj.transform.localScale = Vector3.one * (float.Parse(elemets[10]) /25);
     }
     private void NewAstroid()
     {

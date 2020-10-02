@@ -13,7 +13,7 @@ public class SixElement_Orbit : MonoBehaviour
     public float i;//inclantion
 
     public bool moon;
-
+    private bool solved_plane;
     private Vector3 Xh;
     private Vector3 Yh;
     private Vector3 Zh;
@@ -27,7 +27,10 @@ public class SixElement_Orbit : MonoBehaviour
     private float c;
     public Vector3[] GetOrbitalPlane()
     {
-        CalculateOrbitalPlane();
+        if (!solved_plane)
+        {
+            CalculateOrbitalPlane();
+        }
         Vector3[] vectors = new Vector3[3];
         vectors[0] = Xh;
         vectors[1] = Yh;
@@ -36,6 +39,7 @@ public class SixElement_Orbit : MonoBehaviour
     }
     private void Start()
     {
+        progress = 0;
         SetElipse();
         CalculateOrbitalPlane();
     }
@@ -54,9 +58,9 @@ public class SixElement_Orbit : MonoBehaviour
         if (moon)
         {
             Vector3[] Plane= TargetObject.GetComponent<SixElement_Orbit>().GetOrbitalPlane();
-            Jh = Plane[0];
-            Ih = Plane[1];
+            Jh = -Plane[1];
             Kh = Plane[2];
+            Ih = Plane[0];
         }
 
         float wRad = w * Mathf.Deg2Rad;
@@ -78,6 +82,7 @@ public class SixElement_Orbit : MonoBehaviour
         Xh = x1 * Ih + x2 * Jh + x3 * Kh;
         Yh = y1 * Ih + y2 * Jh + y3 * Kh;
         Zh = z1 * Ih + z2 * Jh + z3 * Kh;
+        solved_plane = true;
 
     }
 
@@ -90,10 +95,19 @@ public class SixElement_Orbit : MonoBehaviour
     Vector3 ProgresToVector3()//Converts the progras value from 
     {
         float angle = progress * 360 * Mathf.Deg2Rad;//converts progres to degres from center of ellipse
-        float x = Mathf.Cos(angle) * a+ TargetObject.transform.position.x - c;
-        float y = Mathf.Sin(angle) * b + TargetObject.transform.position.z;
+        float x = Mathf.Cos(angle) * a;
+        float y = Mathf.Sin(angle) * b;
+        float z = 0;
+        Vector3 X = x * Xh;
+        Vector3 Y = y * Yh;
+        Vector3 Z = z * Zh;
+        Vector3 pos= X + Z + Y;
+        Vector3 Cvec = -c * Xh;
 
-        return x * Xh + 0 * Zh + y * Yh;
+        pos.x += TargetObject.transform.position.x+Cvec.x;
+        pos.y += TargetObject.transform.position.y + Cvec.y;
+        pos.z += TargetObject.transform.position.z + Cvec.z;
+        return pos; 
     }
     float CalculateOrbitalPriod()
     {
@@ -115,7 +129,7 @@ public class SixElement_Orbit : MonoBehaviour
         this.om = om;
         this.V0 = V0;
         moon = is_moon;
-        TimeScale = 50000;
+        TimeScale = 10000;
         this.TargetObject = TargetObject;
         SetElipse();
         CalculateOrbitalPlane();
